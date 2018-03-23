@@ -1,7 +1,14 @@
 {
   "name": "vaadin-issues",
-  "description": "shows jittery scrolling and slow rendering of table in Firefox",
+  "version": "1.5.0",
+  "authors": [
+    "Albert L. Rossi <arossi@fnal.gov>"
+  ],
   "main": "vaadin-issues.html",
+  "description": "A page extracted from the dCache administrative frontend and simplified in order to demonstrate some issues encountered in Firefox",
+  "license": "GNU Affero General Public License",
+  "homepage": "http://www.dcache.org/",
+  "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "vaadin-grid": "#3.0.2"

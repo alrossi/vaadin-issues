@@ -11,13 +11,13 @@
 <link rel="import"
       href="../bower_components/vaadin-grid/vaadin-grid-table-scroll-behavior.html">
 
-<dom-module id="vaadin-firefox-issues">
+<dom-module id="vaadin-issues">
     <template>
         <style>
             :host {
-                display: none;
-                height: 100%;
-                width: 90%;
+                display: block;
+                height: 90vh;
+                width: 90vw;
                 -webkit-font-smoothing: antialiased;
             }
 
@@ -70,8 +70,9 @@
             }
 
             .tablediv {
-                height: 80vh;
-                width: 90vw;
+                height: 100%;
+                width: 95%;
+                margin: 0 auto;
             }
         </style>
 
@@ -174,9 +175,9 @@
     </template>
 
     <script>
-        class VaadinFirefoxIssues extends Polymer.Element {
+        class VaadinIssues extends Polymer.Element {
             static get is() {
-                return 'vaadin-firefox-issues';
+                return 'vaadin-issues';
             }
 
             static get properties() {
@@ -22483,6 +22484,6 @@
             }
         ];
 
-        window.customElements.define(VaadinFirefoxIssues.is, VaadinFirefoxIssues);
+        window.customElements.define(VaadinIssues.is, VaadinIssues);
     </script>
 </dom-module>
