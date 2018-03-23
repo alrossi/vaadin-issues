@@ -6,19 +6,19 @@ a larger frontend administrative interface for the dCache project
 
 The purpose of the demo is to illustrate two issues in Firefox:
 
-(a) very slow rendering of this particular template in comparison 
+1.  very slow rendering of this particular template in comparison 
     to other browsers;
-(b) general jitteriness when scrolling the vaadin-grid rows.
+2.  general jitteriness when scrolling the vaadin-grid rows.
 
-Data is added to the table from a hardcoded window variable.  Note
+Data is added to the table from a hard-coded window variable.  Note
 that the problems encountered above are independent of the data
 load time.  
 
-dCache's "dcache-view" uses the vaadin-grid components extensives, both
-with and without remote/Ajax (to RESTful services) data providers.  Whether
+dCache's "dcache-view" uses the vaadin-grid components extensively, both
+with and without remote lazy-loading data providers.  Whether
 the data is loaded all at once or by using paging, the same performance
-disparity is observable between Safari and Chrome, on the one hand (which
-work perfectly well), and Firefox, on the other. 
+disparity is observable between Safari / Chrome on the one hand (which
+work perfectly well), and Firefox on the other.
 
 ## Checkout and build
 
@@ -48,8 +48,11 @@ With Firefox, you should observe the behaviors indicated by the screenshots
 included in the repository. 
 
 1.  firefox-delay.png       shows the stalled rendering.
-2.  firefox-scrolling.png   shows the scrambled columns and empty rows when you 
-                            scroll (note:  this is a problem in Firefox even
+2.  firefox-scrolling.png   after stopping the stalled rendering (above),
+                            this is the result, which also shows scrambled 
+                            columns and empty rows when you scroll.
+                            (NOTE:  this is a problem we have encountered with
+                            vaadin-grid scrolling in Firefox even
                             when there is no redering delay).
 3.  chrome.png              is for comparison purposes (normal behavior).
 
