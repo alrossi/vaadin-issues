@@ -1,5 +1,5 @@
 {
-  "name": "vaadin-issues",
+  "name": "vaadin-provider-with-filters",
   "version": "1.5.0",
   "authors": [
     "Albert L. Rossi <arossi@fnal.gov>"
@@ -11,7 +11,8 @@
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "vaadin-grid": "#3.0.2"
+    "polymer-iron-elements": "dCacheElements/polymer-iron-elements#0.0.5",
+    "vaadin-grid": "#4.1.7"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

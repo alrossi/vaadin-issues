@@ -1,0 +1,85 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer-element.html">
+<link rel="import"
+      href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import"
+      href="../bower_components/vaadin-grid/vaadin-grid-filter.html">
+<link rel="import"
+      href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="vaadin-provider-with-filters">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <iron-ajax auto
+                   url="https://demo.vaadin.com/demo-data/1.0/people?count=200"
+                   handle-as="json" last-response="{{data}}"></iron-ajax>
+
+        <vaadin-grid id="demo">
+            <vaadin-grid-column width="50px" flex-grow="0">
+                <template class="header">#</template>
+                <template>[[index]]</template>
+            </vaadin-grid-column>
+            <vaadin-grid-column>
+                <template class="header">
+                    <vaadin-grid-filter aria-label="First Name"
+                                        path="firstName"
+                                        value="[[_filterFirstName]]">
+                        <input slot="filter"
+                               placeholder="First Name"
+                               value="{{_filterFirstName::input}}"
+                               focus-target>
+                    </vaadin-grid-filter>
+                </template>
+                <template>[[item.firstName]]</template>
+            </vaadin-grid-column>
+            <vaadin-grid-column>
+                <template class="header">
+                    <vaadin-grid-filter aria-label="Last Name"
+                                        path="lastName"
+                                        value="[[_filterLastName]]">
+                        <input slot="filter"
+                               placeholder="Last Name"
+                               value="{{_filterLastName::input}}"
+                               focus-target>
+                    </vaadin-grid-filter>
+                </template>
+                <template>[[item.lastName]]</template>
+            </vaadin-grid-column>
+        </vaadin-grid>
+    </template>
+
+    <script>
+        class VaadinProviderWithFilters extends Polymer.Element {
+            static get is() {
+                return 'vaadin-provider-with-filters';
+            }
+
+            static get properties() {
+                return {
+                    data: {
+                        type: Object,
+                    }
+                };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this.$.demo.dataProvider = this.runProvider.bind(this);
+            }
+
+            runProvider(params, callback) {
+                console.log(`runProvider called with ${params.filters.length} filters`);
+                if (this.data) {
+                    this.$.demo.size = this.data.result.length;
+                    callback(this.data.result);
+                }
+            }
+        }
+
+        window.customElements.define(VaadinProviderWithFilters.is, VaadinProviderWithFilters);
+    </script>
+</dom-module>

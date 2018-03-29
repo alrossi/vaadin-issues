@@ -1,24 +1,18 @@
-# \<vaadin-issues\>
+# \<vaadin-provider-with-filters\>
 
-The component included here is extracted and simplified into a standalone from
-a larger frontend administrative interface for the dCache project
-(https://github.com/dCache).
+The component included here is adapted from jsbin.zoziget.3.html
+(https://jsbin.com/laxuxah/edit?html,output).
 
-The purpose of the demo is to illustrate two issues in Firefox:
+The purpose of the demo is to illustrate the fact that when you
+attache a data provider function using connected callback,
+the function is called each time a column filter is initialized.
 
-1.  very slow rendering of this particular template in comparison 
-    to other browsers;
-2.  general jitteriness when scrolling the vaadin-grid rows.
+While nothing serious happens using IronAjax (as per your demo
+boilerplate), this behavior does lead to a corrupted data cache 
+if the provider is using asynchronous lazy loading with paging (see below). 
 
-Data is added to the table from a hard-coded window variable.  Note
-that the problems encountered above are independent of the data
-load time.  
-
-dCache's "dcache-view" uses the vaadin-grid components extensively, both
-with and without remote lazy-loading data providers.  Whether
-the data is loaded all at once or by using paging, the same performance
-disparity is observable between Safari / Chrome on the one hand (which
-work perfectly well), and Firefox on the other.
+Note that the filters are (of course) unimplemented in this snippet,
+but this is irrelevant to the point being illustrated.
 
 ## Checkout and build
 
@@ -40,19 +34,24 @@ First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polyme
 $ polymer serve
 ```
 
-Use the indicated URL ( http://127.0.0.1:8081/components/vaadin-issues, 
-redirected to /demo) to observe these problems.   Try
-to load the page in Safari and Chrome, and then in Firefox.
+Use the indicated URL (http://127.0.0.1:8081/components/vaadin-provider-with-filters/, 
+redirected to /demo) to observe these problems.   The console logging
+should reveal the multiple calls.
 
-With Firefox, you should observe the behaviors indicated by the screenshots
-included in the repository. 
 
-1.  firefox-delay.png       shows the stalled rendering.
-2.  firefox-scrolling.png   after stopping the stalled rendering (above),
-                            this is the result, which also shows scrambled 
-                            columns and empty rows when you scroll.
-                            (NOTE:  this is a problem we have encountered with
-                            vaadin-grid scrolling in Firefox even
-                            when there is no redering delay).
-3.  chrome.png              is for comparison purposes (normal behavior).
+## Lazy loaded RESTful data
 
+I am not sure how to use the URL providing demo data to do offset+limit, so I
+have included the decorator component I have written to handle all the provider 
+functionality for our framework.  This is for inspection only, as it is
+missing a couple of mixin dependencies.
+
+If you examine the runProvider function, you will see what I mean.  Without
+
+```
+    if (params.filters.length !== this.numberOfFilters) {
+        return;
+    }
+```
+
+the data cache gets corrupted.
